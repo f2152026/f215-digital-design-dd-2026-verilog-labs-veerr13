@@ -7,8 +7,6 @@
 //           instantiations below into any different sequence, then
 //           re-simulate with the same tb.v and compare.
 
-`timescale 1ns/1ps
- 
 module FA_Gate(
   input  a,
   input  b,
@@ -18,11 +16,11 @@ module FA_Gate(
 );
   wire ps, pc1, pc2;
  
-  xor #(2) (ps,   a,   b);
-  and #(2) (pc1,  a,   b);
-  xor #(2) (sum,  cin, ps);
-  and #(2) (pc2,  cin, ps);
-  or  #(2) (cout, pc1, pc2);
-  
+  or  (cout, pc1, pc2);
+  and (pc2, cin, ps);
+  xor (sum, cin, ps);
+  and (pc1, a,   b);
+  xor (ps,  a,   b);
  
 endmodule
+ 
